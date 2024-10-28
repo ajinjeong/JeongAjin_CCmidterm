@@ -1,13 +1,10 @@
 //todo:
-//decreasing opacity of lines (set alpha value as variable -> decrease with for-loop)
 //animate lines (from center)
-//make shapes
-//move shapes down (change to create shape & decrease y values of vertices (even i values in an array of vertices))
-//new scene: 
-//choose blue shades
+//make shapes (draw cracks using class)
+//-> move shapes down (change to create shape & decrease y values of vertices (even i values in an array of vertices))
 
-let i = 0;
-let opacity = newArray ();
+var i = 0;
+let shapes = [];
 
 function setup() {
   createCanvas (displayWidth, displayHeight);
@@ -17,6 +14,18 @@ function setup() {
 function draw() {
   if (i >= 6) {
     background (154, 206, 235);
+    if (shapes.length<5) {
+      shapes.push(new Shape());
+    }
+    for (let shape of shapes) {
+      shape.show();
+      shape.update();
+    }
+    for (let a = 0; a < shapes.length; a++) {
+      for (let b = a + 1; b < shapes.length; b++) {
+        shapes[a].crash(shapes[b]);
+      }
+    }
   }
 }
 
@@ -42,12 +51,8 @@ function mouseClicked () {
   let cracky5 = random(0,displayHeight);
   let crackright = ((displayWidth-mouseX)/3);
 
-  //controlling opacity
-  // for (let i = x.length - 1; i > 0; i--) {
-  //   x[i] = x[i - 1];
-  // }
-
-  if (i < 6) { //draw 4 cracks on mouse click
+  if (i < 6) { //draw 4 cracks, each on mouse click
+  background (154, 206, 235,51);
   drawCrack (crackx0, 0, crackx1, cracktop, crackx2, 2*cracktop); //top crack
   drawCrack (crackx3, displayHeight, crackx4, displayHeight-crackbottom, crackx5, displayHeight-2*crackbottom); //bottom crack
   drawCrack (0, cracky0, crackleft, cracky1, 2*crackleft, cracky2); //left crack
@@ -63,12 +68,4 @@ function drawCrack (cracka, cracky, crackb, cracky2, crackc, cracky3) {
   line (cracka, cracky, crackb, cracky2); //crack closer to edge
   line (crackb, cracky2, crackc, cracky3); //middle crack
   line (crackc, cracky3, mouseX, mouseY); //crack closer to mouse click
-}
-
-//drawing shape
-function mousePressed () {
-  strokeWeight (5);
-  beginShape ();
-  vertex (mouseX, mouseY);
-  endShape ();
 }
