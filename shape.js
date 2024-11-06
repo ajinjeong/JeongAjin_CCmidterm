@@ -3,13 +3,13 @@ class Shape {
 		this.side = 100; //size of shape
 		this.position = createVector(random (0,displayWidth), random (0,displayHeight-this.side)); //position of shape (random on display)
 		this.velocity = createVector(random (-5,5), random (-5,5)); //velocity of shape (random between -5 and 5)
-		this.opacity = 255;
-		this.alive = true;
+		this.opacity = 255; //starting opacity
+		this.alive = true; //for controlling dead shapes
 	}
 	show() {
-		fill(0, 100, 200, this.opacity);
+		fill(70, 130, 180, this.opacity);
 		noStroke ();
-		rect (this.position.x, this.position.y, this.side,this.side);
+		rect (this.position.x, this.position.y, this.side, this.side);
 	}
 	update() {
     	this.position.add(this.velocity);
